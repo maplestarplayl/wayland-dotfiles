@@ -1,0 +1,57 @@
+mixed-port: 7899
+allow-lan: true
+mode: Rule
+log-level: info
+keep-alive-interval: 60
+external-controller: localhost:9091
+dns:
+  enable: true
+  ipv6: false
+  default-nameserver: [223.5.5.5, 119.29.29.29]
+  fake-ip-range: 198.18.0.1/16
+  use-hosts: true
+  nameserver: ["https://doh.pub/dns-query", "https://dns.alidns.com/dns-query"]
+  fallback:
+    [
+      "https://doh.dns.sb/dns-query",
+      "https://dns.cloudflare.com/dns-query",
+      "https://dns.twnic.tw/dns-query",
+      "tls://8.8.4.4:853",
+    ]
+  fallback-filter: { geoip: true, ipcidr: [240.0.0.0/4, 0.0.0.0/32] }
+proxies:
+  - {
+      name: VPS HK - AzureLifeng,
+      type: vmess,
+      server: ,
+      port: ,
+      alterId: 0,
+      uuid: ,
+      cipher: auto,
+      udp: false,
+    }
+#proxy-providers:
+#  Night:
+#    type: http
+#    interval: 86400
+#    health-check:
+#      enable: true
+#      url: http://www.gstatic.com/generate_204
+#      interval: 1800
+#      timeout: 5
+  
+
+#proxies:
+
+proxy-groups:
+  - name: night
+    type: select
+    url: "http://www.gstatic.com/generate_204"
+    proxies:
+      - VPS HK - AzureLifeng
+    interval: 1800
+rules:  
+  ##Default Setting(Direct or REJECT) provided by Github Project: clash-rules
+  - MATCH,night
+
+secret: 
