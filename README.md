@@ -1,2 +1,2 @@
 # wayland-dotfiles
-For my Arch Desktop 's config files
+Config files for my Arch Wayland Desktop
